@@ -1,1 +1,1 @@
-web: gunicorn madness:app
+web: gunicorn "madness:create_app()"
