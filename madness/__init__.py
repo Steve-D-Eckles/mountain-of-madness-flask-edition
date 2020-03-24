@@ -25,10 +25,12 @@ def create_app(test_config=None):
 
     # placeholder hello route
     @app.route('/')
-    def hello():
+    def index():
         return 'Hello, World!'
 
-    from . import db
+    from . import db, auth
     db.init_app(app)
+    app.register_blueprint(auth.bp)
+    app.add_url_rule('/', endpoint='index')
 
     return app
