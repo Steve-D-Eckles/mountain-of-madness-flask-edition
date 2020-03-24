@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 
 def create_app(test_config=None):
     '''Create the app and configure it'''
@@ -26,7 +26,7 @@ def create_app(test_config=None):
     # placeholder hello route
     @app.route('/')
     def index():
-        return 'Hello, World!'
+        return render_template('index.html')
 
     from . import db, auth
     db.init_app(app)
