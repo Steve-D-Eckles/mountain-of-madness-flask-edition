@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Play{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <article class=play>
+    {% for para in text %}
+      <p>{{ para }}</p>
+    {% endfor %}
+  </article>
+  <form method="post">
+    <label>Title
+      <input type="text" name="action" value="Action" required>
+    </label>
+  </form>
+{% endblock %}

@@ -3,6 +3,7 @@ from flask import (
 )
 
 from madness.db import get_db
+from madness import scenes
 
 bp = Blueprint('game', __name__, url_prefix='/game')
 
@@ -26,6 +27,22 @@ def get_scenes(action):
 
     return next_scene
 
+def get_scene_text(scene):
+    scene_list = {
+        'mountain_exterior': scenes.MountainExterior(),
+        # 'ex_search': scenes.ExteriorSearch(),
+        # 'ex_approach': scenes.ExteriorApproach(),
+        # 'ex_wait': scenes.ExteriorWait(),
+        # 'first_fork': scenes.FirstFork(),
+        # 'first_fork_left': scenes.FirstForkLeft(),
+        # 'first_fork_right': scenes.FirstForkRight(),
+        # 'door_ram': scenes.DoorRam(),
+        # 'pit': scenes.Pit(),
+        # 'footlockers': scenes.Footlockers()
+    }
+
+    return scene_list.get(scene).enter()
+
 
 @bp.route('/play', methods=("GET", 'POST'))
 def play():
@@ -33,7 +50,7 @@ def play():
         session['scene'] = 'mountain_exterior'
 
     if request.method == 'POST':
-        action = request.form['action']
+        action = request.form['action'].lower()
         error = None
         next_scene = get_scenes(action)
 
@@ -43,7 +60,10 @@ def play():
             error = 'Not a valid action'
 
         if error is None:
-            # Move to the next scene
-            pass
+            session['scene'] = next_scene
 
         flash(error)
+
+    text = get_scene_text(session['scene'])
+
+    return render_template('game/play.html', text=text)
