@@ -10,9 +10,13 @@
       <p>{{ para }}</p>
     {% endfor %}
   </article>
+  {% if not dead %}
   <form method="post">
-    <label>Title
-      <input type="text" name="action" value="Action" required>
+    <label>Input an action:
+      <input type="text" name="action" required>
+      <input type="submit" name="submit-action" value="Take Action!">
     </label>
   </form>
+  {% endif %}
+  <a href="{{ url_for('game.reset') }}">Reset Game</a>
 {% endblock %}
