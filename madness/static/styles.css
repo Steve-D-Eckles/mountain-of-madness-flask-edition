@@ -43,3 +43,8 @@ nav ul a {
   display: flex;
 
 }
+
+article p {
+  font-size: 1.5rem;
+  margin: 1.5rem auto;
+}

@@ -165,7 +165,7 @@ class DoorRam(Scene):
     def enter(self):
         self.result.append("""You ready yourself to ram the door.""")
 
-        if randint(1, 100) < 10:
+        if randint(1, 100) < 85:
             self.result.append("""You fail to get the door open. Try AGAIN or go BACK""")
             self.result.append(False)
             return self.result
